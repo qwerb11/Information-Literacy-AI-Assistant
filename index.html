@@ -5,11 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>信息素养 AI 学伴</title>
 <style>
-:root{
-  --primary:#0f766e; --primary-dark:#115e59; --bg:#f1f5f9; --card:#ffffff;
-  --text:#1e293b; --muted:#64748b; --border:#e2e8f0; --blue:#2563eb;
-  --ok:#16a34a; --err:#dc2626; --warn:#b45309; --radius:12px;
-}
+:root{--primary:#0f766e;--primary-dark:#115e59;--bg:#f1f5f9;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--blue:#2563eb;--ok:#16a34a;--err:#dc2626;--radius:12px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:15px}
 .wrap{max-width:960px;margin:0 auto;padding:0 12px 30px}
@@ -25,20 +21,17 @@ section.active{display:block}
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px}
 .card h2{font-size:16px;margin-bottom:10px}
 .note{font-size:12.5px;color:var(--muted);background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:10px}
-/* chat */
 .chatbox{display:flex;flex-direction:column;height:62vh;min-height:380px}
 .messages{flex:1;overflow-y:auto;padding:6px 2px}
 .msg{max-width:86%;margin-bottom:12px;padding:10px 13px;border-radius:12px;font-size:14.5px;word-break:break-word}
 .msg.user{margin-left:auto;background:var(--blue);color:#fff;border-bottom-right-radius:3px}
 .msg.ai{background:#f1f5f9;border:1px solid var(--border);border-bottom-left-radius:3px}
+.msg.off{background:#fffbeb;border:1px solid #fde68a;border-bottom-left-radius:3px}
 .msg.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
 .msg pre{background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;overflow-x:auto;font-size:13px;margin:6px 0}
 .msg code{background:#e2e8f0;border-radius:4px;padding:1px 5px;font-size:13px}
 .msg pre code{background:none;padding:0}
-.msg h3,.msg h4{margin:8px 0 4px}
-.msg ul{margin:4px 0 4px 18px}
-.msg ol{margin:4px 0 4px 18px}
-.msg li{margin:2px 0}
+.msg h4{margin:8px 0 4px}
 .typing{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:6px}
 .typing::after{content:'';width:6px;height:6px;background:var(--muted);border-radius:50%;animation:blink 1s infinite}
 @keyframes blink{50%{opacity:0}}
@@ -49,7 +42,8 @@ section.active{display:block}
 .inputrow textarea{flex:1;border:1px solid var(--border);border-radius:10px;padding:10px;font-size:14.5px;resize:none;height:56px;font-family:inherit}
 .inputrow button{border:0;background:var(--primary);color:#fff;border-radius:10px;padding:0 20px;cursor:pointer;font-size:15px}
 .inputrow button:disabled{opacity:.5;cursor:not-allowed}
-/* quiz */
+.mode{font-size:12px;font-weight:400;color:#fff;background:#16a34a;border-radius:999px;padding:2px 10px;margin-left:8px;vertical-align:middle}
+.mode.off{background:#b45309}
 .quizbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
 .catbtn{border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 14px;cursor:pointer;font-size:13.5px}
 .catbtn.active{background:var(--primary);border-color:var(--primary);color:#fff}
@@ -79,7 +73,6 @@ section.active{display:block}
 .review .rq{border-top:1px dashed var(--border);padding:10px 0}
 .review .okc{color:var(--ok);font-weight:600}
 .review .badc{color:var(--err);font-weight:600}
-/* video */
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 .vcard{border:1px solid var(--border);border-radius:var(--radius);padding:14px;background:#fff;display:flex;flex-direction:column;gap:6px}
 .vcard .tag{font-size:11.5px;color:#0369a1;background:#e0f2fe;border-radius:5px;padding:2px 8px;align-self:flex-start}
@@ -88,12 +81,6 @@ section.active{display:block}
 .vcard .desc{font-size:12.8px;color:#475569;flex:1}
 .vcard a{display:block;text-align:center;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;padding:8px;font-size:14px;margin-top:4px}
 .vcard a:hover{background:var(--primary-dark)}
-/* settings */
-.field{margin-bottom:14px}
-.field label{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px}
-.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);border-radius:9px;padding:9px 11px;font-size:14px;font-family:inherit}
-.field .hint{font-size:12px;color:var(--muted);margin-top:4px}
-.rowbtn{display:flex;gap:10px;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:99;max-width:90vw}
 .toast.show{opacity:1}
 footer{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
@@ -104,9 +91,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
   <div class="wrap">
     <div>
       <h1>📚 信息素养 AI 学伴</h1>
-      <p>面向高职高专学生 · AI 答疑 + 题库练习 + 微课资源</p>
+      <p>面向高职高专学生 · 打开即用：AI 答疑 + 题库练习 + 微课资源</p>
     </div>
-    <p>本机单文件版</p>
+    <p>v6 已配置版</p>
   </div>
 </header>
 <div class="wrap">
@@ -114,32 +101,29 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
     <button class="tab-btn active" data-tab="chat">💬 AI 问答</button>
     <button class="tab-btn" data-tab="quiz">📝 题库练习</button>
     <button class="tab-btn" data-tab="video">🎬 视频课程</button>
-    <button class="tab-btn" data-tab="settings">⚙️ 设置</button>
   </nav>
 
-  <!-- AI 问答 -->
   <section id="tab-chat" class="active">
     <div class="card">
-      <h2>向 AI 助教提问</h2>
+      <h2>信息素养 AI 助教 <span class="mode" id="modeTag">…</span></h2>
       <div class="chips" id="quickChips">
         <button>什么是信息素养？</button>
-        <button>布尔检索 AND/OR/NOT 怎么用？</button>
-        <button>在知网怎么查找论文？</button>
+        <button>怎么在知网查文献？</button>
         <button>参考文献格式怎么写？</button>
-        <button>怎么判断网络信息可不可信？</button>
+        <button>查出来的文献太多怎么办？</button>
+        <button>下载论文要收费怎么办？</button>
       </div>
       <div class="chatbox">
         <div class="messages" id="messages"></div>
         <div class="inputrow">
-          <textarea id="chatInput" placeholder="输入你的问题，Enter 发送，Shift+Enter 换行"></textarea>
+          <textarea id="chatInput" placeholder="直接输入你的问题，Enter 发送"></textarea>
           <button id="sendBtn">发送</button>
         </div>
       </div>
-      <div class="note" id="chatHint">⚠️ 尚未配置 API Key，请先前往「设置」页填入。AI 回答仅供参考，重要信息请以教师和教材为准。</div>
+      <div class="note">已配置智谱 GLM-4-Flash（免费），打开即可对话，无需任何设置；模型不可用或额度用尽时自动切换内置知识库回答。</div>
     </div>
   </section>
 
-  <!-- 题库练习 -->
   <section id="tab-quiz">
     <div class="card">
       <h2>题库练习 <span style="font-size:12.5px;font-weight:400;color:var(--muted)" id="statsText"></span></h2>
@@ -158,7 +142,6 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
     </div>
   </section>
 
-  <!-- 视频课程 -->
   <section id="tab-video">
     <div class="card">
       <h2>视频课程 · 微课资源</h2>
@@ -169,120 +152,117 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
         <button onclick="window.open('https://higher.smartedu.cn/','_blank')">🔍 国家智慧教育平台</button>
       </div>
       <div class="vgrid" id="vgrid"></div>
-      <div class="note">外链资源版权归原平台与作者所有，仅供学习使用。链接失效时可用上方搜索入口重新查找。如学校有自制微课，可在页面底部注释的 videos 数组处替换链接。</div>
-    </div>
-  </section>
-
-  <!-- 设置 -->
-  <section id="tab-settings">
-    <div class="card">
-      <h2>AI 模型配置</h2>
-      <div class="field">
-        <label>服务商预设</label>
-        <select id="providerSel"></select>
-        <div class="hint">选择预设后自动填充下方地址与模型名；也可选「自定义」手动填写。</div>
-      </div>
-      <div class="field">
-        <label>API 地址（Base URL）</label>
-        <input id="baseUrl" placeholder="https://api.deepseek.com/v1">
-        <div class="hint">填 OpenAI 兼容接口的根地址，末尾带不带 / 均可。</div>
-      </div>
-      <div class="field">
-        <label>API Key</label>
-        <input id="apiKey" type="password" placeholder="sk-...">
-      </div>
-      <div class="field">
-        <label>模型名称</label>
-        <input id="model" placeholder="deepseek-chat">
-      </div>
-      <div class="field">
-        <label>助教提示词（可留空使用默认）</label>
-        <textarea id="sysPrompt" rows="3"></textarea>
-      </div>
-      <div class="rowbtn">
-        <button class="btn-main ctrlbtn" id="saveBtn" style="border:0;border-radius:10px;padding:10px 22px;cursor:pointer">保存设置</button>
-        <button class="btn-ghost ctrlbtn" id="testBtn" style="border-radius:10px;padding:10px 22px;cursor:pointer">测试连接</button>
-        <button class="btn-ghost ctrlbtn" id="clearChatBtn" style="border-radius:10px;padding:10px 22px;cursor:pointer">清空对话记录</button>
-      </div>
-      <div class="note">
-        ⚠️ <b>安全提示</b>：API Key 仅保存在<b>本机浏览器</b>（localStorage），不会上传到任何第三方。<b>不要把含 Key 的这个文件直接发给学生或公开分享</b>，否则他人可提取 Key 盗刷你的账户。<br>
-        💰 <b>费用提示</b>：每次提问都会产生 token 消耗，请在模型平台（如 DeepSeek 开放平台、阿里云百炼）充值，并在平台上设置单日消费上限。<br>
-        🔧 <b>跨域提示</b>：若测试连接提示 CORS/跨域错误，说明该服务商禁止浏览器直接调用，请换用支持浏览器调用的 OpenAI 兼容接口服务商。
-      </div>
+      <div class="note">外链资源版权归原平台与作者所有，仅供学习使用。如学校有自制微课，可在页面源码 VIDEOS 数组处替换。</div>
     </div>
   </section>
 
   <footer>
-    信息素养 AI 学伴 · 单文件网页版 v1.0 ｜ 题库与 AI 回答仅供教学参考，正式使用前请图书馆教师审核
+    信息素养 AI 学伴 v6 ｜ AI 答疑 + 题库练习 + 微课资源 ｜ 内容仅供教学参考
   </footer>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============ 题库数据（54题，可自行增补） ============ */
-var QUESTIONS=[
-/* —— 信息素养基础 —— */
-{id:1,cat:'base',q:'“信息素养”这一概念最早于 1974 年由谁提出？',o:['保罗·泽考斯基（Paul Zurkowski）','比尔·盖茨','香农','彼得·德鲁克'],a:0,e:'1974 年，美国信息产业协会主席保罗·泽考斯基首次提出信息素养概念：指经过训练、能运用信息资源解决问题的人。'},
-{id:2,cat:'base',q:'按文献加工深度划分，下列属于一次文献的是',o:['期刊论文','文摘','百科全书','综述文章'],a:0,e:'一次文献是作者以生产、科研成果为依据创作的原始文献，如期刊论文、学位论文、专利说明书等；文摘是二次文献，百科全书、综述属三次文献。'},
-{id:3,cat:'base',q:'下列属于二次文献（检索工具）的是',o:['索引和文摘','实验报告','专利说明书','会议论文'],a:0,e:'二次文献是对一次文献进行加工整理后的检索工具，如目录、索引、文摘。'},
-{id:4,cat:'base',q:'综述、述评类文章属于',o:['三次文献','一次文献','二次文献','零次文献'],a:0,e:'三次文献是在一、二次文献基础上综合分析、浓缩加工而成的文献，如综述、述评、百科全书。'},
-{id:5,cat:'base',q:'判断：零次文献指未经正式发表、未进入社会流通渠道的原始记录，如手稿、课堂笔记、会议交流资料。',o:['正确','错误'],a:0,e:'表述正确。零次文献是形成一次文献之前的原始信息。'},
-{id:6,cat:'base',q:'下列哪一项不属于信息素养的核心内涵？',o:['信息意识','信息知识','信息能力','计算机维修能力'],a:3,e:'信息素养一般包括信息意识、信息知识、信息能力和信息道德等，与修电脑无关。'},
-{id:7,cat:'base',q:'2016 年美国 ACRL 发布的《高等教育信息素养框架》包含多少个框架元素（阈概念）？',o:['6 个','4 个','8 个','10 个'],a:0,e:'框架以 6 个阈概念组织：权威的构建性与情境性、信息创造的过程性、信息的价值属性、探究式研究、对话式学术研究、战略探索式检索。'},
-{id:8,cat:'base',q:'判断：引用他人成果时，只要在文末列出参考文献，就不必在正文中标明引用位置。',o:['正确','错误'],a:1,e:'规范引用既要文末列参考文献，也要在正文相应位置标注，否则可能构成抄袭或引用不规范。'},
-{id:9,cat:'base',q:'评价网络信息质量时，通常不重点考察',o:['权威性','准确性','时效性','页面美观程度'],a:3,e:'信息质量主要从权威性、准确性、客观性、时效性、相关性等方面评价。'},
-{id:10,cat:'base',q:'判断：查全率与查准率往往呈互逆关系，检索范围扩大时查全率上升、查准率可能下降。',o:['正确','错误'],a:0,e:'二者一般此消彼长，检索时要根据需求在二者间取舍。'},
-{id:11,cat:'base',q:'布尔逻辑检索中，能够扩大检索范围、增加命中文献量的算符是',o:['OR','AND','NOT','NEAR'],a:0,e:'OR（或）连接同义/相关词，扩大范围、提高查全率；AND 缩小范围；NOT 排除。'},
-{id:12,cat:'base',q:'布尔逻辑算符 NOT 的作用是',o:['排除含有某概念的记录，缩小范围','扩大检索范围','提高查全率','模糊匹配'],a:0,e:'NOT 用于排除含特定概念的记录，缩小结果集，使用时要防止误删有用文献。'},
-{id:13,cat:'base',q:'判断：信息素养只包括查找信息的能力，不包括对信息的评价、利用和创造。',o:['正确','错误'],a:1,e:'信息素养包括信息意识、获取、评价、利用与创造、道德等多个环节。'},
-{id:14,cat:'base',q:'学术论文中著录参考文献的主要作用不包括',o:['尊重他人知识产权','便于读者追溯原始文献','体现研究的继承性','增加论文字数'],a:3,e:'参考文献体现学术规范与诚信，与凑字数无关。'},
-{id:15,cat:'base',q:'判断：伪造、篡改实验数据属于学术不端行为。',o:['正确','错误'],a:0,e:'伪造、篡改、剽窃、一稿多投等均属学术不端。'},
-{id:16,cat:'base',q:'下列属于学术不端行为的是',o:['规范署名','一稿多投','合理引用','注明出处'],a:1,e:'一稿多投（同一稿件同时或先后投给多个期刊）属典型学术不端。'},
-{id:17,cat:'base',q:'判断：互联网上公开的信息都可以免费随意转载、使用，不存在版权问题。',o:['正确','错误'],a:1,e:'网络信息同样受著作权保护，转载使用需遵守版权规定。'},
-{id:18,cat:'base',q:'信息素养教育常被概括为“授人以渔”，其核心目标是',o:['让学生学会获取、评价和利用信息的方法','让学生背诵检索词表','只教会使用某一个数据库','代替学生完成作业'],a:0,e:'信息素养教育重在培养终身学习的信息能力。'},
-/* —— 信息检索 —— */
-{id:19,cat:'search',q:'在 CNKI 中用“篇名”字段检索“信息素养”，与用“全文”字段检索相比，通常',o:['查准率更高，结果更少更精准','查全率更高','结果一定更多','没有区别'],a:0,e:'篇名检索只在题名中匹配，结果少而准；全文检索范围大、查全率高但噪音多。'},
-{id:20,cat:'search',q:'中国知网（CNKI）的中文全称是',o:['中国知识基础设施工程','中国科技信息网','国家知识网络','中文期刊数据库'],a:0,e:'CNKI 即 China National Knowledge Infrastructure（中国知识基础设施工程）。'},
-{id:21,cat:'search',q:'检索式“信息素养 AND 高职院校”要求检索结果',o:['同时包含“信息素养”和“高职院校”','包含其中任意一个词','只包含“信息素养”','排除“高职院校”'],a:0,e:'AND（与）要求两个概念同时出现在同一记录中。'},
-{id:22,cat:'search',q:'判断：在搜索引擎中给检索词加上英文双引号，可进行精确匹配检索。',o:['正确','错误'],a:0,e:'双引号实现词组精确匹配，如 "信息素养教育"。'},
-{id:23,cat:'search',q:'在搜索引擎中输入 site:gov.cn 信息素养，作用是',o:['只在 gov.cn 域名网站内检索“信息素养”','搜索关于 gov.cn 的介绍','把 gov.cn 作为排除词','检索所有政府网站'],a:0,e:'site: 用于限定在某网站/域名内检索，如 site:edu.cn 检索教育类网站。'},
-{id:24,cat:'search',q:'在搜索引擎中输入 filetype:pdf 信息素养，作用是',o:['限定检索结果文件类型为 PDF','搜索 PDF 软件下载','限定网站','排除 PDF 文件'],a:0,e:'filetype: 限定文件类型，还支持 ppt、doc、xls 等。'},
-{id:25,cat:'search',q:'截词检索（如用 comput* 匹配 computer、computing）的主要作用是',o:['扩大检索范围，提高查全率','缩小检索范围','精确匹配单个词','限定出版时间'],a:0,e:'截词（通配符 * ?）可一次匹配词干相同的一类词，扩大检索范围。'},
-{id:26,cat:'search',q:'下列检索途径中，通常查准率最高的是',o:['题名检索','全文检索','任意字段检索','模糊检索'],a:0,e:'检索范围越小、匹配越严格，查准率通常越高，题名检索优于全文检索。'},
-{id:27,cat:'search',q:'判断：DOI 是数字对象的唯一标识符，通过 DOI 可以稳定地定位到某篇文献。',o:['正确','错误'],a:0,e:'DOI（Digital Object Identifier）为数字资源提供持久、唯一标识。'},
-{id:28,cat:'search',q:'期刊影响因子（Impact Factor）的计算依据是',o:['期刊论文被引用情况','期刊的印刷量','期刊的页数','期刊的订户数量'],a:0,e:'影响因子通常为该刊前两年发表论文在统计当年被引用的总次数，除以前两年发表论文总数。'},
-{id:29,cat:'search',q:'参考文献标注中，[J] 表示',o:['期刊文章','专著','学位论文','会议论文'],a:0,e:'GB/T 7714 文献类型标识：[J]期刊 [M]专著 [D]学位论文 [C]会议录 [P]专利 [S]标准。'},
-{id:30,cat:'search',q:'参考文献标注中，[D] 表示',o:['学位论文','期刊文章','专利','标准'],a:0,e:'D 取自 Dissertation/Thesis，表示学位论文。'},
-{id:31,cat:'search',q:'判断：ISBN 是国际标准书号，是图书的标准化识别代码。',o:['正确','错误'],a:0,e:'ISBN（International Standard Book Number）是图书的国际标准编号。'},
-{id:32,cat:'search',q:'SCI、EI、SSCI 属于',o:['权威文献检索与引文索引工具','学术期刊名称','图书分类号','出版社名称'],a:0,e:'SCI（科学引文索引）、SSCI（社会科学引文索引）、EI（工程索引）是权威检索/索引工具。'},
-{id:33,cat:'search',q:'判断：查全率 = 检出的相关文献量 ÷ 检索系统中相关文献总量。',o:['正确','错误'],a:0,e:'定义正确。查准率 = 检出的相关文献量 ÷ 检出的文献总量。'},
-{id:34,cat:'search',q:'主题词与关键词的主要区别是',o:['主题词受词表规范控制，关键词是自由词','主题词可以随意使用','关键词受词表控制','两者完全相同'],a:0,e:'主题词（叙词）受主题词表规范控制，检索一致性高；关键词是作者/用户自选词。'},
-{id:35,cat:'search',q:'下列不属于中文文献数据库的是',o:['Web of Science','中国知网（CNKI）','万方数据','维普'],a:0,e:'Web of Science 是国际性（外文）文献检索平台。'},
-{id:36,cat:'search',q:'判断：搜索引擎能够检索到互联网上的全部网页信息。',o:['正确','错误'],a:1,e:'搜索引擎存在收录范围有限、动态网页难以抓取、检索深度有限等问题，不能覆盖全部网络信息。'},
-/* —— 图书馆知识 —— */
-{id:37,cat:'lib',q:'《中国图书馆分类法》（中图法）共设有多少个基本大类？',o:['22 个','26 个','10 个','15 个'],a:0,e:'中图法设 22 个基本大类，用 A-Z 中的 22 个字母表示。'},
-{id:38,cat:'lib',q:'中图法中，G 类代表',o:['文化、科学、教育、体育','文学','历史','经济'],a:0,e:'G 类为文化、科学、教育、体育；其中 G25 为图书馆学、图书馆事业。'},
-{id:39,cat:'lib',q:'中图法中，I 类代表',o:['文学','艺术','语言文字','哲学'],a:0,e:'I 类为文学。'},
-{id:40,cat:'lib',q:'中图法中，O 类代表',o:['数理科学和化学','医药卫生','工业技术','农业科学'],a:0,e:'O 类为数理科学和化学。'},
-{id:41,cat:'lib',q:'中图法中，TP 类（T 类下的二级类）代表',o:['自动化技术、计算机技术','交通运输','航空航天','建筑科学'],a:0,e:'T 类为工业技术，TP 为其中的自动化技术、计算机技术。'},
-{id:42,cat:'lib',q:'中图法中，R 类代表',o:['医药、卫生','经济','政治','军事'],a:0,e:'R 类为医药、卫生。'},
-{id:43,cat:'lib',q:'判断：索书号通常由分类号和书次号组成，是图书排架和读者找书的依据。',o:['正确','错误'],a:0,e:'索书号=分类号+书次号（有的馆还有辅助区分号），图书按索书号排架。'},
-{id:44,cat:'lib',q:'OPAC 是指',o:['联机公共目录查询系统','图书馆借阅卡','图书分类法','数字资源平台'],a:0,e:'OPAC（Online Public Access Catalog）即联机公共目录查询系统，用于查馆藏书目。'},
-{id:45,cat:'lib',q:'判断：图书馆图书排架一般按索书号由小到大的顺序排列。',o:['正确','错误'],a:0,e:'书架从左到右、从上到下按索书号递增排列。'},
-{id:46,cat:'lib',q:'中国国家图书馆的前身是',o:['北京图书馆','京师大学堂图书馆','上海图书馆','中山图书馆'],a:0,e:'1998 年经国务院批准，北京图书馆更名为中国国家图书馆。'},
-{id:47,cat:'lib',q:'ISSN 是',o:['国际标准连续出版物号','国际标准书号','期刊影响因子','图书分类号'],a:0,e:'ISSN（International Standard Serial Number）用于报纸、期刊等连续出版物。'},
-{id:48,cat:'lib',q:'查询本馆是否收藏某本书、该书在哪个书架，应使用',o:['馆藏目录检索系统（OPAC）','百度','邮箱','微信'],a:0,e:'OPAC 可查馆藏地点、索书号和借阅状态。'},
-{id:49,cat:'lib',q:'判断：在图书馆阅览室大声喧哗、长时间占座，是符合读者行为规范的行为。',o:['正确','错误'],a:1,e:'读者应保持安静、文明使用座位，喧哗和占座属不文明行为。'},
-{id:50,cat:'lib',q:'图书借阅超期，图书馆的常见处理方式是',o:['按各馆规定收取逾期费或暂停借阅权限','没收借阅证','开除学籍','不做处理'],a:0,e:'各馆规定不同，一般有逾期费、停借等处理，应及时续借或归还。'},
-{id:51,cat:'lib',q:'判断：图书馆提供参考咨询服务，可以帮助读者解答文献查找、课题检索等问题。',o:['正确','错误'],a:0,e:'参考咨询是图书馆的重要服务之一，可到馆、电话或线上咨询馆员。'},
-{id:52,cat:'lib',q:'中图法中，H 类代表',o:['语言、文字','历史地理','数理科学','艺术'],a:0,e:'H 类为语言、文字。'},
-{id:53,cat:'lib',q:'判断：过刊（往年的期刊合订本）一般收藏在图书馆的过刊阅览室或密集书库，供读者查阅。',o:['正确','错误'],a:0,e:'表述正确。部分图书馆也提供过刊电子版数据库。'},
-{id:54,cat:'lib',q:'中图法中，K 类代表',o:['历史、地理','自然科学总论','文学','经济'],a:0,e:'K 类为历史、地理。'}
+/* ==========================================================
+   模型配置（已填好）
+   PROVIDER：glm = 智谱 GLM-4-Flash（免费）
+   换模型：把 PROVIDER 改成 'deepseek' 或 'doubao' 并填对应 Key/接入点
+   ========================================================== */
+var CONFIG={
+  PROVIDER:'glm',
+  API_KEY:'c71d054a181141e38a14fae31e5fc1b0.HKubalQhmKsS2D7D'
+};
+var PROVIDERS={
+  glm:     {label:'智谱 GLM-4-Flash（免费）',base:'https://open.bigmodel.cn/api/paas/v4',model:'glm-4-flash'},
+  doubao:  {label:'豆包 · 火山方舟',base:'https://ark.cn-beijing.volces.com/api/v3',model:'在这里填你的接入点ID(ep-开头)'},
+  deepseek:{label:'DeepSeek（按量付费）',base:'https://api.deepseek.com/v1',model:'deepseek-chat'}
+};
+
+/* ==================== 内置知识库（10个主题） ==================== */
+var KB=[
+{t:'信息素养概念与框架',k:'信息素养 信息素质 ACRL 框架 信息意识 信息能力 信息道德 概念 定义 素养',
+ c:'信息素养（Information Literacy）：1974年美国信息产业协会主席保罗·泽考斯基首次提出，指个人"能认识到何时需要信息，并能有效检索、评估和使用信息"的能力。国内通常从信息意识、信息知识、信息能力、信息道德四个方面界定。2016年ACRL《高等教育信息素养框架》提出6个阈概念：权威的构建性与情境性、信息创造的过程性、信息的价值属性、探究式研究、对话式学术研究、战略探索式检索。高职学生培养重点：会用图书馆、会检索数据库、会评价信息、会规范引用。'},
+{t:'文献类型与文献等级',k:'一次文献 二次文献 三次文献 零次文献 文献类型 期刊 专利 标准 综述 文摘 索引',
+ c:'零次文献：未经正式发表的原始记录（手稿、课堂笔记、会议交流资料）。一次文献：原始研究成果（期刊论文、学位论文、专利说明书、会议论文、研究报告）。二次文献：对一次文献加工整理的检索工具（目录、索引、文摘、题录）。三次文献：综合提炼产品（综述、述评、百科全书、年鉴、教材）。GB/T 7714文献类型代码：[J]期刊 [M]专著 [D]学位论文 [C]会议论文 [P]专利 [S]标准 [R]报告 [EB/OL]电子资源。'},
+{t:'布尔检索与检索算符',k:'布尔 AND OR NOT 检索式 算符 截词 精确检索 字段 查全率 查准率',
+ c:'AND(与)：各词同时出现，缩小范围、提高查准率；OR(或)：任一出现，扩大范围、提高查全率；NOT(非)：排除。运算优先级通常NOT>AND>OR，可用括号改变。截词符*匹配任意字符串（comput*可匹配computer、computing），?匹配单字符。双引号"..."精确匹配词组。常用字段代码：题名TI、关键词KY、作者AU、单位AF、摘要AB。查全率=检出的相关文献量÷系统中相关文献总量；查准率=检出的相关文献量÷检出的文献总量；二者常互逆。'},
+{t:'搜索引擎高级技巧',k:'搜索引擎 site filetype 高级搜索 技巧 百度 谷歌 检索指令 判断真假 网络信息',
+ c:'site:域名——限定网站内检索（如 site:edu.cn 信息素养，只搜教育类网站）；filetype:pdf——限定文件类型（也支持ppt/doc/xls）；双引号"词组"——精确匹配；减号-词——排除；intitle:词——标题含该词。评价网络信息质量看四性：权威性（谁发布的？）、准确性（有无依据？）、客观性（有无偏见？）、时效性（何时发布？）。优先使用政府(.gov.cn)、教育(.edu.cn)、图书馆、权威媒体的信息。'},
+{t:'知网（CNKI）使用指南',k:'知网 CNKI 中国知网 期刊 学位论文 高级检索 篇名 主题 下载 CAJ 导出参考文献',
+ c:'入口：学校图书馆网站→数据库导航→中国知网（校园网内IP自动登录；校外用学校VPN或CARSI登录）。检索方式：①一框式检索——首页直接输词；②高级检索——限定篇名/关键词/主题/作者/单位，用AND/OR/NOT组合，限定时间与来源类别（核心期刊、CSSCI）；③结果左侧按学科、年份、来源筛选；④点文章下载CAJ或PDF（需学校已购买该库）；⑤勾选文献后点"导出与分析"可一键导出GB/T 7714格式参考文献。注意：篇名检索最精准，主题检索（篇名+关键词+摘要）范围大。个人免费替代渠道：国家哲学社会科学文献中心、国家科技图书文献中心(NSTL)等。'},
+{t:'万方与维普',k:'万方 维普 数据库 会议论文 专利 科技 期刊 检索',
+ c:'万方数据：以期刊、学位论文、会议论文、专利、标准、科技成果见长，会议论文和科技类文献较全。维普：期刊收录量大，以自然科学、工程技术期刊为主，回溯年代较深。三个中文库（知网/万方/维普）互有重叠但不完全相同，正式查某一主题建议三个库都查，避免漏检。使用方式与知网类似：高级检索+字段限定+时间限定。学校未购买的库，可通过图书馆文献传递或馆际互借获取原文。'},
+{t:'文献检索策略与步骤',k:'检索策略 检索步骤 课题 选词 检索词 同义词 文献调研 太多 太少 漏检',
+ c:'六步法：①分析课题——明确主题概念、目的、范围、语种、年限；②选检索词——同义词、近义词、上下位词、中英文、缩写与全称（如"信息素养"≈"信息素质"≈Information Literacy）；③选数据库——中文用知网/万方/维普，外文用Web of Science等；④构造检索式——AND/OR/NOT组合；⑤检索与调整——结果太多：加限定词、限篇名字段、限时间/来源；结果太少：换上位词、用OR加同义词、放宽字段；⑥获取原文——直接下载或文献传递。实例：查"高职学生信息素养现状"，检索式：(信息素养 OR 信息素质) AND (高职 OR 大专) AND (现状 OR 调查)。'},
+{t:'学术规范与引用格式',k:'参考文献 引用 格式 GB/T7714 学术不端 抄袭 引用格式 著录 标注',
+ c:'参考文献著录执行国家标准GB/T 7714-2015。示例：期刊——作者.题名[J].刊名,年,卷(期):页码.；专著——作者.书名[M].版次.出版地:出版社,出版年:页码.；学位论文——作者.题名[D].保存地:保存单位,年份.；电子资源——作者.题名[EB/OL].(发布日期)[引用日期].网址.。正文标注可用顺序编码制[1]（按出现顺序编号）。学术不端包括：抄袭剽窃、伪造篡改数据、一稿多投、不当署名、买卖论文。避免抄袭三原则：直接引用加引号并注明出处；转述改写也要注明来源；引用比例适度。'},
+{t:'图书馆资源与服务',k:'图书馆 OPAC 索书号 中图法 馆藏 借阅 参考咨询 馆际互借 图书馆服务 开馆',
+ c:'馆藏查询用OPAC（联机公共目录查询系统），可查馆藏地点、索书号、借阅状态并可续借。中国图书馆分类法22个基本大类：G文化科学教育体育、H语言文字、I文学、K历史地理、O数理化学、R医药卫生、T工业技术（TP计算机）。索书号=分类号+书次号，按号排架找书。图书馆常见服务：参考咨询（找资料、定课题可咨询馆员）、馆际互借/文献传递、信息素养培训讲座、电子资源校外访问。借阅超期按本馆规定处理（逾期费或暂停借阅）。具体开馆时间、借阅册数、校外访问方式请以本校图书馆网站和公众号公布为准。'},
+{t:'常见FAQ',k:'怎么查文献 怎么找 找不到 全文 免费 下载 论文怎么查 FAQ 文献太多 文献太少 求助',
+ c:'Q：怎么开始查文献？A：确定主题→提炼2-4个关键词→知网/万方高级检索→先看综述和核心期刊文章→按参考文献追溯。Q：下载要钱？A：用校园网（图书馆已购）；校外用学校VPN/CARSI；免费替代：国家哲学社会科学文献中心、NSTL、各库开放获取文章；还可申请图书馆文献传递。Q：结果太多？A：限篇名字段、加时间/来源限制、加AND限定词。Q：结果太少？A：换同义词/上位词、用OR扩词、字段放宽为主题。Q：找不到某篇文章？A：记下题名/作者/刊名，用百度学术查出处，再用图书馆数据库或文献传递获取。Q：网络信息可信吗？A：查来源权威性、作者资质、更新时间、多方印证。'}
 ];
 
-/* ============ 视频资源数据 ============ */
+/* ==================== 题库（54题） ==================== */
+var QUESTIONS=[
+{id:1,cat:'base',q:'“信息素养”这一概念最早于 1974 年由谁提出？',o:['保罗·泽考斯基（Paul Zurkowski）','比尔·盖茨','香农','彼得·德鲁克'],a:0,e:'1974年，美国信息产业协会主席保罗·泽考斯基首次提出信息素养概念。'},
+{id:2,cat:'base',q:'按文献加工深度划分，下列属于一次文献的是',o:['期刊论文','文摘','百科全书','综述文章'],a:0,e:'一次文献是原始研究成果；文摘是二次文献，百科全书、综述属三次文献。'},
+{id:3,cat:'base',q:'下列属于二次文献（检索工具）的是',o:['索引和文摘','实验报告','专利说明书','会议论文'],a:0,e:'二次文献是对一次文献加工整理后的检索工具。'},
+{id:4,cat:'base',q:'综述、述评类文章属于',o:['三次文献','一次文献','二次文献','零次文献'],a:0,e:'三次文献是在一、二次文献基础上综合提炼而成。'},
+{id:5,cat:'base',q:'判断：零次文献指未经正式发表、未进入社会流通渠道的原始记录。',o:['正确','错误'],a:0,e:'表述正确。'},
+{id:6,cat:'base',q:'下列哪一项不属于信息素养的核心内涵？',o:['信息意识','信息知识','信息能力','计算机维修能力'],a:3,e:'信息素养含信息意识、知识、能力、道德。'},
+{id:7,cat:'base',q:'2016 年美国 ACRL《高等教育信息素养框架》包含多少个阈概念？',o:['6 个','4 个','8 个','10 个'],a:0,e:'框架以6个阈概念组织。'},
+{id:8,cat:'base',q:'判断：引用他人成果时，只要文末列出参考文献，就不必在正文标明引用位置。',o:['正确','错误'],a:1,e:'规范引用需正文标注与文末列表对应。'},
+{id:9,cat:'base',q:'评价网络信息质量时，通常不重点考察',o:['权威性','准确性','时效性','页面美观程度'],a:3,e:'主要看权威性、准确性、客观性、时效性、相关性。'},
+{id:10,cat:'base',q:'判断：查全率与查准率往往呈互逆关系。',o:['正确','错误'],a:0,e:'二者一般此消彼长。'},
+{id:11,cat:'base',q:'布尔逻辑检索中，能够扩大检索范围、增加命中文献量的算符是',o:['OR','AND','NOT','NEAR'],a:0,e:'OR连接同义/相关词，扩大范围、提高查全率。'},
+{id:12,cat:'base',q:'布尔逻辑算符 NOT 的作用是',o:['排除含有某概念的记录','扩大检索范围','提高查全率','模糊匹配'],a:0,e:'NOT用于排除特定概念记录。'},
+{id:13,cat:'base',q:'判断：信息素养只包括查找信息的能力，不包括评价、利用和创造。',o:['正确','错误'],a:1,e:'信息素养含获取、评价、利用、创造、道德等环节。'},
+{id:14,cat:'base',q:'学术论文中著录参考文献的主要作用不包括',o:['尊重他人知识产权','便于读者追溯原文','体现研究的继承性','增加论文字数'],a:3,e:'参考文献体现学术规范，与凑字数无关。'},
+{id:15,cat:'base',q:'判断：伪造、篡改实验数据属于学术不端行为。',o:['正确','错误'],a:0,e:'属学术不端。'},
+{id:16,cat:'base',q:'下列属于学术不端行为的是',o:['规范署名','一稿多投','合理引用','注明出处'],a:1,e:'一稿多投属典型学术不端。'},
+{id:17,cat:'base',q:'判断：互联网上公开的信息都可以免费随意转载使用，不存在版权问题。',o:['正确','错误'],a:1,e:'网络信息同样受著作权保护。'},
+{id:18,cat:'base',q:'信息素养教育常被概括为“授人以渔”，其核心目标是',o:['让学生学会获取、评价和利用信息的方法','让学生背诵检索词表','只教会使用某一个数据库','代替学生完成作业'],a:0,e:'重在培养终身学习的信息能力。'},
+{id:19,cat:'search',q:'在 CNKI 中用“篇名”字段检索，与用“全文”字段检索相比，通常',o:['查准率更高，结果更少更精准','查全率更高','结果一定更多','没有区别'],a:0,e:'篇名检索匹配范围小，结果少而准。'},
+{id:20,cat:'search',q:'中国知网（CNKI）的中文全称是',o:['中国知识基础设施工程','中国科技信息网','国家知识网络','中文期刊数据库'],a:0,e:'CNKI即China National Knowledge Infrastructure。'},
+{id:21,cat:'search',q:'检索式“信息素养 AND 高职院校”要求检索结果',o:['同时包含“信息素养”和“高职院校”','包含其中任意一个词','只包含“信息素养”','排除“高职院校”'],a:0,e:'AND要求两词同时出现。'},
+{id:22,cat:'search',q:'判断：在搜索引擎中给检索词加英文双引号，可进行精确匹配检索。',o:['正确','错误'],a:0,e:'双引号实现词组精确匹配。'},
+{id:23,cat:'search',q:'在搜索引擎中输入 site:gov.cn 信息素养，作用是',o:['只在 gov.cn 域名网站内检索“信息素养”','搜索 gov.cn 的介绍','把 gov.cn 作为排除词','检索所有政府网站'],a:0,e:'site:限定在某网站/域名内检索。'},
+{id:24,cat:'search',q:'在搜索引擎中输入 filetype:pdf 信息素养，作用是',o:['限定检索结果文件类型为 PDF','搜索 PDF 软件下载','限定网站','排除 PDF 文件'],a:0,e:'filetype:限定文件类型。'},
+{id:25,cat:'search',q:'截词检索（如 comput* 匹配 computer、computing）的主要作用是',o:['扩大检索范围，提高查全率','缩小检索范围','精确匹配单个词','限定出版时间'],a:0,e:'截词一次匹配词干相同的一类词。'},
+{id:26,cat:'search',q:'下列检索途径中，通常查准率最高的是',o:['题名检索','全文检索','任意字段检索','模糊检索'],a:0,e:'匹配范围越小越严格，查准率越高。'},
+{id:27,cat:'search',q:'判断：DOI 是数字对象的唯一标识符，可以稳定定位某篇文献。',o:['正确','错误'],a:0,e:'DOI提供持久、唯一标识。'},
+{id:28,cat:'search',q:'期刊影响因子（Impact Factor）的计算依据是',o:['期刊论文被引用情况','期刊的印刷量','期刊的页数','期刊的订户数量'],a:0,e:'基于论文被引用情况计算。'},
+{id:29,cat:'search',q:'参考文献标注中，[J] 表示',o:['期刊文章','专著','学位论文','会议论文'],a:0,e:'[J]期刊 [M]专著 [D]学位论文 [C]会议录 [P]专利 [S]标准。'},
+{id:30,cat:'search',q:'参考文献标注中，[D] 表示',o:['学位论文','期刊文章','专利','标准'],a:0,e:'D取自Dissertation/Thesis。'},
+{id:31,cat:'search',q:'判断：ISBN 是国际标准书号。',o:['正确','错误'],a:0,e:'ISBN是图书的国际标准编号。'},
+{id:32,cat:'search',q:'SCI、EI、SSCI 属于',o:['权威文献检索与引文索引工具','学术期刊名称','图书分类号','出版社名称'],a:0,e:'它们是权威检索/索引工具。'},
+{id:33,cat:'search',q:'判断：查全率 = 检出的相关文献量 ÷ 检索系统中相关文献总量。',o:['正确','错误'],a:0,e:'定义正确。'},
+{id:34,cat:'search',q:'主题词与关键词的主要区别是',o:['主题词受词表规范控制，关键词是自由词','主题词可随意使用','关键词受词表控制','两者完全相同'],a:0,e:'主题词受主题词表规范控制。'},
+{id:35,cat:'search',q:'下列不属于中文文献数据库的是',o:['Web of Science','中国知网（CNKI）','万方数据','维普'],a:0,e:'Web of Science是外文检索平台。'},
+{id:36,cat:'search',q:'判断：搜索引擎能够检索到互联网上的全部网页信息。',o:['正确','错误'],a:1,e:'搜索引擎收录范围有限，不能覆盖全部网络信息。'},
+{id:37,cat:'lib',q:'《中国图书馆分类法》（中图法）共设有多少个基本大类？',o:['22 个','26 个','10 个','15 个'],a:0,e:'中图法设22个基本大类。'},
+{id:38,cat:'lib',q:'中图法中，G 类代表',o:['文化、科学、教育、体育','文学','历史','经济'],a:0,e:'G类为文化、科学、教育、体育。'},
+{id:39,cat:'lib',q:'中图法中，I 类代表',o:['文学','艺术','语言文字','哲学'],a:0,e:'I类为文学。'},
+{id:40,cat:'lib',q:'中图法中，O 类代表',o:['数理科学和化学','医药卫生','工业技术','农业科学'],a:0,e:'O类为数理科学和化学。'},
+{id:41,cat:'lib',q:'中图法中，TP 类代表',o:['自动化技术、计算机技术','交通运输','航空航天','建筑科学'],a:0,e:'T类为工业技术，TP为自动化技术、计算机技术。'},
+{id:42,cat:'lib',q:'中图法中，R 类代表',o:['医药、卫生','经济','政治','军事'],a:0,e:'R类为医药、卫生。'},
+{id:43,cat:'lib',q:'判断：索书号通常由分类号和书次号组成，是排架和找书的依据。',o:['正确','错误'],a:0,e:'索书号=分类号+书次号。'},
+{id:44,cat:'lib',q:'OPAC 是指',o:['联机公共目录查询系统','图书馆借阅卡','图书分类法','数字资源平台'],a:0,e:'OPAC即联机公共目录查询系统。'},
+{id:45,cat:'lib',q:'判断：图书馆图书排架一般按索书号由小到大排列。',o:['正确','错误'],a:0,e:'从左到右、从上到下按索书号递增排列。'},
+{id:46,cat:'lib',q:'中国国家图书馆的前身是',o:['北京图书馆','京师大学堂图书馆','上海图书馆','中山图书馆'],a:0,e:'1998年北京图书馆更名为中国国家图书馆。'},
+{id:47,cat:'lib',q:'ISSN 是',o:['国际标准连续出版物号','国际标准书号','期刊影响因子','图书分类号'],a:0,e:'ISSN用于报纸、期刊等连续出版物。'},
+{id:48,cat:'lib',q:'查询本馆是否收藏某本书、在哪个书架，应使用',o:['馆藏目录检索系统（OPAC）','百度','邮箱','微信'],a:0,e:'OPAC可查馆藏地点、索书号和借阅状态。'},
+{id:49,cat:'lib',q:'判断：在阅览室大声喧哗、长时间占座符合读者行为规范。',o:['正确','错误'],a:1,e:'应保持安静、文明使用座位。'},
+{id:50,cat:'lib',q:'图书借阅超期，图书馆的常见处理方式是',o:['按各馆规定收取逾期费或暂停借阅权限','没收借阅证','开除学籍','不做处理'],a:0,e:'各馆规定不同，一般有逾期费、停借等。'},
+{id:51,cat:'lib',q:'判断：图书馆提供参考咨询服务，可帮助解答文献查找、课题检索问题。',o:['正确','错误'],a:0,e:'参考咨询是图书馆重要服务。'},
+{id:52,cat:'lib',q:'中图法中，H 类代表',o:['语言、文字','历史地理','数理科学','艺术'],a:0,e:'H类为语言、文字。'},
+{id:53,cat:'lib',q:'判断：过刊一般收藏在图书馆过刊阅览室或密集书库，供读者查阅。',o:['正确','错误'],a:0,e:'表述正确。'},
+{id:54,cat:'lib',q:'中图法中，K 类代表',o:['历史、地理','自然科学总论','文学','经济'],a:0,e:'K类为历史、地理。'}
+];
+
+/* ==================== 视频资源 ==================== */
 var VIDEOS=[
-{cat:'MOOC 系统课程',title:'《信息检索》武汉大学（黄如花主讲）',src:'中国大学 MOOC',desc:'国家级精品课程，系统讲授信息检索原理、方法与常用数据库使用。',url:'https://www.icourse163.org/course/WHU-29001'},
+{cat:'MOOC 系统课程',title:'《信息检索》武汉大学（黄如花主讲）',src:'中国大学 MOOC',desc:'国家级精品课程，系统讲授信息检索原理与方法。',url:'https://www.icourse163.org/course/WHU-29001'},
 {cat:'MOOC 系统课程',title:'《信息检索》西南交通大学',src:'中国大学 MOOC',desc:'信息检索基础与工具课程。',url:'https://www.icourse163.org/course/-1460715163'},
 {cat:'MOOC 系统课程',title:'《信息检索与利用》江南大学',src:'中国大学 MOOC',desc:'面向应用的信息检索与利用课程。',url:'https://www.icourse163.org/course/JIANGNAN-1207113825'},
 {cat:'MOOC 系统课程',title:'《大学生计算与信息化素养》北京林业大学',src:'中国大学 MOOC',desc:'信息化素养与计算思维基础课程。',url:'https://www.icourse163.org/course/BFU-1207176813'},
@@ -295,14 +275,117 @@ var VIDEOS=[
 {cat:'微课短视频',title:'搜索引擎搜索技巧：提升10倍搜索效率',src:'B站',desc:'常用搜索引擎高效检索技巧。',url:'https://www.bilibili.com/video/BV12o4y1x7tn/'}
 ];
 
-/* ============ 通用工具 ============ */
+/* ==================== 工具 ==================== */
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function $(id){return document.getElementById(id);}
-function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._tm);t._tm=setTimeout(function(){t.classList.remove('show');},2800);}
+function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._tm);t._tm=setTimeout(function(){t.classList.remove('show');},3000);}
 function storeGet(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
 function storeSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
-/* ============ Tab 切换 ============ */
+/* ==================== AI 调用 ==================== */
+var DEFAULT_PROMPT='你是一名面向高职高专学生的「信息素养AI助教」，由学校图书馆信息素养教育项目配置。你的职责：帮助学生理解信息素养概念、学会信息检索、掌握数据库使用、规范引用文献、正确利用图书馆。回答要求：①用通俗易懂的中文，先给结论再解释；②分点作答；③涉及检索操作给出具体步骤和检索式示例；④优先依据下方【知识库资料】作答，知识库没有的内容基于通用知识回答并说明仅供参考；⑤学生询问练习题答案时，先提示思路再给答案；⑥不回答与学习无关的闲聊或有害内容。';
+
+function currentProvider(){return PROVIDERS[CONFIG.PROVIDER]||PROVIDERS.glm;}
+function keyOk(){
+  var k=(CONFIG.API_KEY||'').trim();
+  return k!=='' && k.indexOf('这里')===-1 && k.indexOf('你的')===-1;
+}
+function setModeTag(text,off){
+  var t=$('modeTag');t.textContent=text;t.className=off?'mode off':'mode';
+}
+function refreshModeTag(){
+  if(!keyOk()){setModeTag('未配置Key·离线模式',true);}
+  else{setModeTag(currentProvider().label,false);}
+}
+
+function kbTop(q,n){
+  var scored=KB.map(function(e,i){
+    var s=0;
+    e.k.split(' ').forEach(function(kw){
+      if(!kw)return;
+      var m=q.match(new RegExp(kw,'g'));
+      if(m)s+=m.length*(kw.length>=4?3:1);
+    });
+    return {i:i,s:s};
+  });
+  scored.sort(function(a,b){return b.s-a.s;});
+  var picked=scored.filter(function(x){return x.s>0;}).slice(0,n||2);
+  if(picked.length===0)picked=[{i:9}];
+  return picked;
+}
+function kbText(q,n){
+  return kbTop(q,n).map(function(x){var e=KB[x.i];return '【主题：'+e.t+'】\n'+e.c;}).join('\n\n');
+}
+
+function aiStream(systemContent,history){
+  return new Promise(function(resolve,reject){
+    var p=currentProvider();
+    var ctl=new AbortController();
+    var timer=setTimeout(function(){ctl.abort();},120000);
+    fetch(p.base.replace(/\/+$/,'')+'/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+CONFIG.API_KEY.trim()},
+      body:JSON.stringify({model:p.model,messages:[{role:'system',content:systemContent}].concat(history),temperature:0.7,max_tokens:800,stream:true}),
+      signal:ctl.signal
+    }).then(function(res){
+      if(!res.ok){return res.text().then(function(t){throw new Error('HTTP '+res.status+' '+t.slice(0,120));});}
+      var reader=res.body.getReader(),dec=new TextDecoder(),buf='',full='';
+      function pump(){
+        return reader.read().then(function(r){
+          if(r.done){clearTimeout(timer);resolve(full);return;}
+          buf+=dec.decode(r.value,{stream:true});
+          var lines=buf.split('\n');buf=lines.pop();
+          for(var i=0;i<lines.length;i++){
+            var line=lines[i].trim();
+            if(line.indexOf('data:')!==0)continue;
+            var pl=line.slice(5).trim();
+            if(pl==='[DONE]')continue;
+            try{
+              var j=JSON.parse(pl);
+              var d=j.choices&&j.choices[0]&&j.choices[0].delta&&j.choices[0].delta.content;
+              if(d)full+=d;
+            }catch(e){}
+          }
+          return pump();
+        });
+      }
+      return pump();
+    }).catch(function(e){clearTimeout(timer);reject(e);});
+  });
+}
+
+function aiPlain(systemContent,history){
+  var p=currentProvider();
+  var ctl=new AbortController();
+  var timer=setTimeout(function(){ctl.abort();},90000);
+  return fetch(p.base.replace(/\/+$/,'')+'/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+CONFIG.API_KEY.trim()},
+    body:JSON.stringify({model:p.model,messages:[{role:'system',content:systemContent}].concat(history),temperature:0.7,max_tokens:800,stream:false}),
+    signal:ctl.signal
+  }).then(function(res){
+    clearTimeout(timer);
+    return res.json().then(function(j){
+      if(!res.ok)throw new Error('HTTP '+res.status+' '+(j.error&&j.error.message||''));
+      var c=j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;
+      if(!c||!c.trim())throw new Error('empty');
+      return c;
+    });
+  }).catch(function(e){clearTimeout(timer);throw e;});
+}
+
+function offlineAnswer(q){
+  var t=q.trim();
+  if(/^(你好|您好|hi|hello|哈喽|在吗)/i.test(t)){
+    return '你好！我是信息素养 AI 助教。当前 AI 模型暂时不可用，我正在用内置知识库回答。你可以问我：什么是信息素养？怎么在知网查文献？参考文献格式怎么写？';
+  }
+  if(/谢谢|感谢/.test(t))return '不客气！还有其他问题随时问。';
+  var top=kbTop(t,1)[0];
+  var e=KB[top.i];
+  return '【离线知识库 · '+e.t+'】\n'+e.c+'\n\n（当前 AI 模型不可用或额度用尽，以上内容来自内置知识库。Key 恢复/充值后自动回到 AI 在线回答。）';
+}
+
+/* ==================== Tab ==================== */
 document.querySelectorAll('.tab-btn').forEach(function(b){
   b.addEventListener('click',function(){
     document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active');});
@@ -312,82 +395,22 @@ document.querySelectorAll('.tab-btn').forEach(function(b){
   });
 });
 
-/* ============ 设置 ============ */
-var PROVIDERS=[
-{name:'DeepSeek（推荐默认）',base:'https://api.deepseek.com/v1',model:'deepseek-chat'},
-{name:'阿里云百炼 · 通义千问',base:'https://dashscope.aliyuncs.com/compatible-mode/v1',model:'qwen-plus'},
-{name:'月之暗面 Kimi',base:'https://api.moonshot.cn/v1',model:'moonshot-v1-8k'},
-{name:'智谱 AI',base:'https://open.bigmodel.cn/api/paas/v4',model:'glm-4-flash'},
-{name:'自定义',base:'',model:''}
-];
-var DEFAULT_PROMPT='你是一名面向高职高专学生的信息素养教学助教，擅长信息素养、信息检索和图书馆知识。请用通俗易懂的中文回答，适当举例；回答尽量分点、简洁；涉及检索操作时给出具体步骤；学生问练习题答案时，先引导思路再给答案。';
-
-function getSettings(){
-  var s=storeGet('il_settings')||{};
-  return {baseUrl:s.baseUrl||'https://api.deepseek.com/v1',apiKey:s.apiKey||'',model:s.model||'deepseek-chat',sysPrompt:s.sysPrompt||DEFAULT_PROMPT};
-}
-function normBase(u){
-  u=(u||'').trim().replace(/\/+$/,'');
-  if(u.slice(-16)==='/chat/completions'){u=u.slice(0,-16);}
-  return u;
-}
-function fillProviderSel(){
-  var sel=$('providerSel');sel.innerHTML='';
-  PROVIDERS.forEach(function(p,i){var o=document.createElement('option');o.value=i;o.textContent=p.name;sel.appendChild(o);});
-}
-function applyProvider(){
-  var p=PROVIDERS[parseInt($('providerSel').value,10)];
-  if(p&&p.name!=='自定义'){$('baseUrl').value=p.base;$('model').value=p.model;}
-}
-function loadSettingsForm(){
-  var s=getSettings();
-  $('baseUrl').value=s.baseUrl;$('apiKey').value=s.apiKey;$('model').value=s.model;$('sysPrompt').value=s.sysPrompt;
-  var idx=0;PROVIDERS.forEach(function(p,i){if(p.base===normBase(s.baseUrl)&&p.model===s.model){idx=i;}});
-  $('providerSel').value=idx;
-}
-function saveSettings(){
-  storeSet('il_settings',{baseUrl:normBase($('baseUrl').value),apiKey:$('apiKey').value.trim(),model:$('model').value.trim(),sysPrompt:$('sysPrompt').value.trim()||DEFAULT_PROMPT});
-  toast('设置已保存到本机浏览器');
-}
-$('providerSel').addEventListener('change',applyProvider);
-$('saveBtn').addEventListener('click',saveSettings);
-$('clearChatBtn').addEventListener('click',function(){
-  localStorage.removeItem('il_chat');CHAT_HISTORY=[];$('messages').innerHTML=renderWelcome();toast('对话记录已清空');
-});
-$('testBtn').addEventListener('click',async function(){
-  var base=normBase($('baseUrl').value),key=$('apiKey').value.trim(),model=$('model').value.trim();
-  if(!key){toast('请先填写 API Key');return;}
-  if(!base||!model){toast('请填写 API 地址和模型名称');return;}
-  var btn=$('testBtn');btn.textContent='测试中...';btn.disabled=true;
-  try{
-    var res=await fetch(base+'/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
-      body:JSON.stringify({model:model,messages:[{role:'user',content:'请只回复：连接正常'}],max_tokens:20,stream:false})
-    });
-    if(res.ok){var j=await res.json();var c=j.choices&&j.choices[0]&&j.choices[0].message?j.choices[0].message.content:'(无内容)';toast('✅ 连接成功：'+c.slice(0,40));}
-    else{var t=await res.text();toast('❌ 请求失败 HTTP '+res.status+'：'+t.slice(0,100));}
-  }catch(e){
-    toast('❌ 网络/跨域错误：'+e.message.slice(0,80)+'（可能是该服务商禁止浏览器调用）');
-  }
-  btn.textContent='测试连接';btn.disabled=false;
-});
-
-/* ============ AI 问答 ============ */
+/* ==================== AI 问答 ==================== */
 var CHAT_HISTORY=storeGet('il_chat')||[];
 function renderWelcome(){
-  return '<div class="msg ai">你好！我是<b>信息素养 AI 助教</b>。可以问我：信息素养概念、信息检索方法、数据库使用、文献著录、图书馆利用等问题。回答仅供学习参考。</div>';
+  return '<div class="msg ai">你好！我是<b>信息素养 AI 助教</b>，可以直接提问。我能解答：信息素养概念、信息检索方法、数据库使用、文献引用格式、图书馆利用等问题。回答仅供学习参考。</div>';
 }
 function renderChat(){
   var box=$('messages');box.innerHTML=renderWelcome();
   CHAT_HISTORY.forEach(function(m){
-    if(m.role==='user'){box.appendChild(userMsg(m.content));}
-    else if(m.role==='assistant'){box.appendChild(aiMsg(m.content));}
+    var d=document.createElement('div');
+    if(m.role==='user'){d.className='msg user';d.textContent=m.content;}
+    else if(m.role==='offline'){d.className='msg off';d.innerHTML=mdToHtml(m.content);}
+    else{d.className='msg ai';d.innerHTML=mdToHtml(m.content);}
+    box.appendChild(d);
   });
   box.scrollTop=box.scrollHeight;
 }
-function userMsg(t){var d=document.createElement('div');d.className='msg user';d.textContent=t;return d;}
-function aiMsg(t){var d=document.createElement('div');d.className='msg ai';d.innerHTML=mdToHtml(t);return d;}
 function mdToHtml(s){
   var h=esc(s);
   h=h.replace(/```([\s\S]*?)```/g,function(m,c){return '<pre><code>'+c.replace(/^\n|\n$/g,'')+'</code></pre>';});
@@ -398,53 +421,49 @@ function mdToHtml(s){
   h=h.replace(/\n/g,'<br>');
   return h;
 }
+
 async function sendChat(text){
-  var s=getSettings();
-  if(!s.apiKey){toast('请先到「设置」页填写 API Key');document.querySelector('[data-tab="settings"]').click();return;}
-  var input=$('chatInput');var t=(text!==undefined?text:input.value.trim());
+  var input=$('chatInput');
+  var t=(text!==undefined?text:input.value.trim());
   if(!t)return;
-  input.value='';$('chatHint').style.display='none';
+  input.value='';
   var box=$('messages');
-  box.appendChild(userMsg(t));box.scrollTop=box.scrollHeight;
+  var u=document.createElement('div');u.className='msg user';u.textContent=t;box.appendChild(u);
+  box.scrollTop=box.scrollHeight;
   CHAT_HISTORY.push({role:'user',content:t});
   var bubble=document.createElement('div');bubble.className='msg ai';
   bubble.innerHTML='<span class="typing">正在思考</span>';
   box.appendChild(bubble);box.scrollTop=box.scrollHeight;
   $('sendBtn').disabled=true;
-  var full='';
-  try{
-    var msgs=[{role:'system',content:s.sysPrompt}].concat(CHAT_HISTORY.slice(-30));
-    var res=await fetch(normBase(s.baseUrl)+'/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},
-      body:JSON.stringify({model:s.model,messages:msgs,temperature:0.7,stream:true})
-    });
-    if(!res.ok){var et=await res.text();throw new Error('HTTP '+res.status+'：'+et.slice(0,150));}
-    var reader=res.body.getReader(),dec=new TextDecoder(),buf='';
-    while(true){
-      var r=await reader.read();if(r.done)break;
-      buf+=dec.decode(r.value,{stream:true});
-      var lines=buf.split('\n');buf=lines.pop();
-      for(var i=0;i<lines.length;i++){
-        var line=lines[i].trim();
-        if(line.indexOf('data:')!==0)continue;
-        var payload=line.slice(5).trim();
-        if(payload==='[DONE]')continue;
-        try{
-          var j=JSON.parse(payload);
-          var d=j.choices&&j.choices[0]&&j.choices[0].delta&&j.choices[0].delta.content;
-          if(d){full+=d;bubble.innerHTML=mdToHtml(full);box.scrollTop=box.scrollHeight;}
-        }catch(e){}
+
+  var kb=kbText(t,2);
+  var history=CHAT_HISTORY.slice(-30);
+  var sys=DEFAULT_PROMPT+'\n\n【知识库资料】\n'+kb;
+  var answer='',mode='online';
+
+  if(keyOk()){
+    try{
+      answer=await aiStream(sys,history);
+      if(!answer||!answer.trim())throw new Error('empty');
+    }catch(e1){
+      try{
+        answer=await aiPlain(sys,history);
+      }catch(e2){
+        answer=offlineAnswer(t);
+        mode='offline';
       }
     }
-    if(!full){full='（未收到内容，请重试）';bubble.innerHTML=esc(full);}
-    CHAT_HISTORY.push({role:'assistant',content:full});
-    if(CHAT_HISTORY.length>40){CHAT_HISTORY=CHAT_HISTORY.slice(-40);}
-    storeSet('il_chat',CHAT_HISTORY);
-  }catch(e){
-    bubble.className='msg err';
-    bubble.innerHTML='<b>请求失败：</b>'+esc(e.message)+'<br>可能原因：API Key 错误/欠费、模型名错误、网络不通、服务商禁止浏览器调用（跨域）。请到「设置」页检查或更换服务商。';
+  }else{
+    answer=offlineAnswer(t);
+    mode='offline';
   }
+
+  if(mode==='offline'){bubble.className='msg off';setModeTag('离线知识库模式',true);}
+  else{setModeTag(currentProvider().label,false);}
+  bubble.innerHTML=mdToHtml(answer);
+  CHAT_HISTORY.push({role:mode==='offline'?'offline':'assistant',content:answer});
+  if(CHAT_HISTORY.length>40)CHAT_HISTORY=CHAT_HISTORY.slice(-40);
+  storeSet('il_chat',CHAT_HISTORY);
   $('sendBtn').disabled=false;
   box.scrollTop=box.scrollHeight;
 }
@@ -456,16 +475,15 @@ document.querySelectorAll('#quickChips button').forEach(function(b){
   b.addEventListener('click',function(){sendChat(b.textContent);});
 });
 
-/* ============ 题库练习 ============ */
+/* ==================== 题库练习 ==================== */
 var CATS={all:'全部',base:'信息素养基础',search:'信息检索',lib:'图书馆知识'};
-var quiz={cat:'all',mode:'seq',list:[],idx:0,score:0,answered:false,done:false};
+var quiz={cat:'all',mode:'seq',list:[],idx:0,score:0,answered:false,marked:[]};
 var wrongIds=storeGet('il_wrong_ids')||[];
 var stats=storeGet('il_stats')||{total:0,correct:0};
-
 function saveWrong(){storeSet('il_wrong_ids',wrongIds);}
 function saveStats(){storeSet('il_stats',stats);}
 function updateStatsText(){
-  $('statsText').textContent='（累计答题 '+stats.total+' 题，正确 '+stats.correct+' 题，错题 '+wrongIds.length+' 道）';
+  $('statsText').textContent='（累计答题 '+stats.total+' 题，正确 '+stats.correct+' 题，错题本 '+wrongIds.length+' 道）';
 }
 function pickList(){
   var pool=QUESTIONS.filter(function(q){return quiz.cat==='all'||q.cat===quiz.cat;});
@@ -474,13 +492,12 @@ function pickList(){
     for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp;}
     return arr.slice(0,10);
   }
-  if(quiz.mode==='wrong'){
-    return QUESTIONS.filter(function(q){return wrongIds.indexOf(q.id)>-1;});
-  }
+  if(quiz.mode==='wrong')return QUESTIONS.filter(function(q){return wrongIds.indexOf(q.id)>-1;});
   return pool;
 }
 function startQuiz(){
-  quiz.list=pickList();quiz.idx=0;quiz.score=0;quiz.done=false;quiz.answered=false;
+  quiz.list=pickList();quiz.idx=0;quiz.score=0;quiz.answered=false;
+  quiz.marked=quiz.list.map(function(){return null;});
   if(quiz.list.length===0){
     $('quizBody').innerHTML='<div class="summary"><div class="score">🎉</div><p>当前没有错题（或该分类暂无题目）。</p><div class="ctrl" style="justify-content:center"><button class="btn-main" onclick="startQuiz()">返回练习</button></div></div>';
     return;
@@ -501,22 +518,25 @@ function renderQuestion(){
   document.querySelectorAll('#quizBody .opt').forEach(function(btn){
     btn.addEventListener('click',function(){choose(parseInt(btn.dataset.i,10));});
   });
-  $('quitBtn').addEventListener('click',function(){quiz.list=[];renderSummary(true);});
+  $('quitBtn').addEventListener('click',function(){renderSummary(true);});
   $('nextBtn').addEventListener('click',function(){
     quiz.idx++;
-    if(quiz.idx<quiz.list.length){renderQuestion();}
-    else{renderSummary(false);}
+    if(quiz.idx<quiz.list.length)renderQuestion();
+    else renderSummary(false);
   });
 }
 function choose(i){
   if(quiz.answered)return;
   quiz.answered=true;
   var q=quiz.list[quiz.idx];
-  stats.total++;stats.correct+=(i===q.a?1:0);saveStats();
+  var right=(i===q.a);
+  quiz.marked[quiz.idx]=right;
+  stats.total++;if(right)stats.correct++;
+  saveStats();
   var btns=document.querySelectorAll('#quizBody .opt');
   btns.forEach(function(b){b.disabled=true;});
   var ex=$('explain');
-  if(i===q.a){
+  if(right){
     quiz.score++;
     btns[i].classList.add('correct');
     ex.className='explain right';ex.innerHTML='✅ 回答正确。'+esc(q.e);
@@ -531,15 +551,13 @@ function choose(i){
   updateStatsText();
 }
 function renderSummary(quit){
-  var total=quiz.list.length,score=quiz.score;
-  var wrong=quiz.list.filter(function(q,i){return quiz.marked&&quiz.marked[i]===false;});
-  var html='';
   if(quit){
-    html='<div class="summary"><div class="score">练习已结束</div><p>本次共答 '+stats.total+' 题</p><div class="ctrl" style="justify-content:center"><button class="btn-main" onclick="startQuiz()">重新开始</button></div></div>';
-    $('quizBody').innerHTML=html;updateStatsText();return;
+    $('quizBody').innerHTML='<div class="summary"><div class="score">练习已结束</div><p>本次已完成 '+quiz.idx+' 题</p><div class="ctrl" style="justify-content:center"><button class="btn-main" onclick="startQuiz()">重新开始</button></div></div>';
+    updateStatsText();return;
   }
+  var total=quiz.list.length,score=quiz.score;
   var rate=total?Math.round(score/total*100):0;
-  html+='<div class="summary"><div class="score">'+score+' / '+total+'</div><p>正确率 '+rate+'%</p>';
+  var html='<div class="summary"><div class="score">'+score+' / '+total+'</div><p>正确率 '+rate+'%</p>';
   html+='<div class="review">';
   quiz.list.forEach(function(q,idx){
     var ok=quiz.marked[idx];
@@ -551,33 +569,20 @@ function renderSummary(quit){
   updateStatsText();
 }
 function clearWrong(){wrongIds=[];saveWrong();toast('错题本已清空');updateStatsText();}
-
-/* 记录每轮作答结果 */
-var _origRender=renderQuestion;
-renderQuestion=function(){
-  if(!quiz.marked||quiz.marked.length!==quiz.list.length){quiz.marked=quiz.list.map(function(){return null;});}
-  _origRender();
-};
-var _origChoose=choose;
-choose=function(i){
-  quiz.marked[quiz.idx]=(i===quiz.list[quiz.idx].a);
-  _origChoose(i);
-};
-
 document.querySelectorAll('.catbtn').forEach(function(b){
   b.addEventListener('click',function(){
     document.querySelectorAll('.catbtn').forEach(function(x){x.classList.remove('active');});
-    b.classList.add('active');quiz.cat=b.dataset.cat;quiz.marked=[];startQuiz();
+    b.classList.add('active');quiz.cat=b.dataset.cat;startQuiz();
   });
 });
 document.querySelectorAll('.modebtn').forEach(function(b){
   b.addEventListener('click',function(){
     document.querySelectorAll('.modebtn').forEach(function(x){x.classList.remove('active');});
-    b.classList.add('active');quiz.mode=b.dataset.mode;quiz.marked=[];startQuiz();
+    b.classList.add('active');quiz.mode=b.dataset.mode;startQuiz();
   });
 });
 
-/* ============ 视频渲染 ============ */
+/* ==================== 视频渲染 ==================== */
 function renderVideos(){
   var html='';
   VIDEOS.forEach(function(v){
@@ -586,9 +591,8 @@ function renderVideos(){
   $('vgrid').innerHTML=html;
 }
 
-/* ============ 初始化 ============ */
-fillProviderSel();
-loadSettingsForm();
+/* ==================== 初始化 ==================== */
+refreshModeTag();
 renderChat();
 updateStatsText();
 startQuiz();
